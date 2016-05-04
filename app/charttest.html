@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="charts.js"></script>
+    <link rel="stylesheet" href="app.css">
+
+    <title>My first chart</title>
+
+</head>
+<body>
+
+    <h1>Hallo Welt!!!</h1>
+
+    <div id="containerEinwohnerGesamt" style="width:500px; height:400px;"></div>
+    <div id="containerGeschlechter" style="width:500px; height:400px;"></div>
+    <div id="containerAlter2013" style="width:500px; height:400px;"></div>
+
+    <script>
+        $(document).ready(function() {
+            getEinwohnerGesamtData("containerEinwohnerGesamt");
+            getGeschlechterVerteilung("containerGeschlechter");
+            getAlterVerteilung2013("containerAlter2013");
+        });
+    </script>
+</body>
+</html>

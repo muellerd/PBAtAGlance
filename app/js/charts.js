@@ -100,5 +100,92 @@ function getGeschlechterVerteilung(container){
 }
 
 function getAlterVerteilung2013(container){
-    
+    var categories = [];
+    var options = {
+        credits: { enabled: false },
+        tooltip:{ crosshairs: [true] },
+        chart: {
+            renderTo: container,
+            defaultSeriesType: 'bar',
+            width: 500,
+            height: 400
+        },
+        title: { text: "Geschlechterverteilung für 2013" },
+        xAxis: [{
+            categories: categories,
+            reversed: false,
+            labels: {
+                step: 1
+            }
+        },
+        {
+            opposite: true,
+            reversed: false,
+            categories: categories,
+            linkedTo: 0,
+            labels: {
+                step: 1
+            }
+        }],
+        yAxis: {
+            title: { text: '' }
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [],
+        colors: ['#7cb5ec', '#f45b5b', '#90ed7d', '#f7a35c', '#f15c80', '#91e8e1']
+    };
+    $.get('data/einwohner_alter.csv', function(data) {
+        // Split the lines
+        var lines = data.split('\n');
+        var seriesM = {data: []};
+        var seriesW = {data: []};
+
+        seriesM.name = "männlich";
+        seriesW.name = "weiblich";
+
+
+        // Iterate over the lines and add categories or series
+        for(var i = 0; i < lines.length; i++){
+            if(i == 0){
+                //first line; get categories
+                var lSplit = lines[i].split(";");
+                for(var k = 3; k < lSplit.length; k++){
+                    categories.push(lSplit[k]);
+                }
+            }
+            else{
+                var lSplit = lines[i].split(";");
+                //console.log(lSplit);
+                if (lSplit[0].indexOf("2013") > -1){
+                    if(lSplit[1] == "t"){
+                        continue;
+                    }
+                    else{
+                        var seriesData = [];
+                        for(var k = 3; k < lSplit.length; k++){
+                            seriesData.push(parseFloat(lSplit[k]));
+                        }
+                        if(lSplit[1] == "m"){
+                            for(var l= 0; l < seriesData.length; l++){
+                                seriesData[l] = -1 * seriesData[l]
+                            }
+                            seriesM.data = seriesData;
+                        }
+                        else{
+                            seriesW.data = seriesData;
+                        }
+                    }
+                }
+            }
+        }
+        console.log(seriesM);
+        console.log(seriesW);
+        options.series.push(seriesM);
+        options.series.push(seriesW);
+        var chart = new Highcharts.Chart(options);
+    });
 }

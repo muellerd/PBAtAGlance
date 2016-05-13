@@ -6,7 +6,8 @@ function getLineChartOptions(title, container) {
             renderTo: container,
             defaultSeriesType: 'line',
             width: 500,
-            height: 400
+            height: 400,
+            backgroundColor: "#f8f8f8"
         },
         title: { text: title },
         xAxis: { categories: [] },

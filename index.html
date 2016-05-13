@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Paderborn At A Glance</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="js/charts.js"></script>
 
 </head>
 
@@ -43,17 +45,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">Start Bootstrap</a>
+                <a class="navbar-brand topnav" href="#">Start</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#about">About</a>
+                        <a href="#about">Bewohner</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#services">Services</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="#contact">Contact</a>
                     </li>
@@ -73,20 +75,17 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Landing Page</h1>
-                        <h3>A Template by Start Bootstrap</h3>
+                        <h1>Paderborn At A Glance</h1>
+                        <h3>Wissenswertes über das schöne Paderborn</h3>
                         <hr class="intro-divider">
-                        <ul class="list-inline intro-social-buttons">
+                        Hier erfährt man alles was man schon immer über Paderborn wissen wollte. Verpackt in schöne Graphiken.
+                        <br />
+                        Alle Informationen wurden mit der Hand aus dem verfügbaren Datensumpf gegraben.
+                        <!--<ul class="list-inline intro-social-buttons">
                             <li>
                                 <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                             </li>
-                            <li>
-                                <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                            </li>
-                        </ul>
+                        </ul>-->
                     </div>
                 </div>
             </div>
@@ -107,12 +106,15 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                    <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
+                    <h2 class="section-heading">Bewohner</h2>
+                    <p class="lead">In dieser Kategorie gibt es interessante Informationen über die Bewohner Paderborns. Wie hat sich zum Beispiel die
+                    Einwohnerzahl in den letzten Jahrzehnten verändert? Oder wie viele Männer und Frauen gibt es?</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="img/ipad.png" alt="">
+                    <!--<img class="img-responsive" src="img/ipad.png" alt="">-->
+                    <div id="containerEinwohnerGesamt" style="width:500px; height:400px;"></div>
                 </div>
+
             </div>
 
         </div>
@@ -228,6 +230,14 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            getEinwohnerGesamtData("containerEinwohnerGesamt");
+            //getGeschlechterVerteilung("containerGeschlechter");
+            //getAlterVerteilung2013("containerAlter2013");
+        });
+    </script>
 
 </body>
 

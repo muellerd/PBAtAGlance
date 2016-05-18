@@ -129,13 +129,24 @@ function getAlterVerteilung2013(container){
             }
         }],
         yAxis: {
-            title: { text: '' }
+            title: { text: '' },
+            labels: {
+                    formatter: function () {
+                        return Math.abs(this.value);
+                    }
+                }
         },
         plotOptions: {
             series: {
                 stacking: 'normal'
             }
         },
+        tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + ', Alter ' + this.point.category + '</b><br/>' +
+                        'Anzahl: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }
+            },
         series: [],
         colors: ['#7cb5ec', '#f45b5b', '#90ed7d', '#f7a35c', '#f15c80', '#91e8e1']
     };
@@ -187,6 +198,58 @@ function getAlterVerteilung2013(container){
         console.log(seriesW);
         options.series.push(seriesM);
         options.series.push(seriesW);
+        var chart = new Highcharts.Chart(options);
+    });
+}
+
+function getBewegungenNat(container){
+    var options = getLineChartOptions("Bevölkerungsbewegungen", container);
+    $.get('data/bewegungen_nat.csv', function(data) {
+        // Split the lines
+        var lines = data.split('\n');
+        var seriesGeburten = {data: []};
+        var seriesTote = {data: []};
+
+        seriesGeburten.name = "Geburten";
+        seriesTote.name = "Sterbefälle";
+
+        // Iterate over the lines and add categories or series
+        for(var i = 0; i < lines.length; i++){
+            if(i == 0){
+                continue;
+            }
+            var items = lines[i].split(';');
+            options.xAxis.categories.push(parseFloat(items[0]));
+            seriesGeburten.data.push(parseFloat(items[1]));
+            seriesTote.data.push(parseFloat(items[2]));
+        }
+        options.series.push(seriesGeburten);
+        options.series.push(seriesTote);
+        // Create the chart
+        var chart = new Highcharts.Chart(options);
+    });
+}
+
+function getStudentenGesamt(container){
+    var options = getLineChartOptions("Studierende", container);
+    $.get('data/studis.csv', function(data) {
+        // Split the lines
+        var lines = data.split('\n');
+        var seriesStudis = {data: []};
+
+        seriesStudis.name = "Studierende";
+
+        // Iterate over the lines and add categories or series
+        for(var i = 0; i < lines.length; i++){
+            if(i == 0){
+                continue;
+            }
+            var items = lines[i].split(';');
+            options.xAxis.categories.push(items[0]);
+            seriesStudis.data.push(parseFloat(items[1]));
+        }
+        options.series.push(seriesStudis);
+        // Create the chart
         var chart = new Highcharts.Chart(options);
     });
 }

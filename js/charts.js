@@ -7,7 +7,7 @@ function getLineChartOptions(title, container) {
             defaultSeriesType: 'line',
             width: 500,
             height: 400,
-            backgroundColor: "#f8f8f8"
+            backgroundColor: "#ffffff"
         },
         title: { text: title },
         xAxis: { categories: [] },
